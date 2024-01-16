@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: read
+  issues: write  # Add permissions to create issues
 
 jobs:
   build:
@@ -37,3 +38,9 @@ jobs:
     - name: Run main.py
       run: |
         python3 main.py
+    - name: Create Issue
+      uses: peter-evans/create-issue-from-file@v4
+      with:
+        title: "Garibi"
+        content-filepath: ./main.py
+        labels: update
