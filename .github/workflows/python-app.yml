@@ -19,6 +19,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
@@ -41,6 +44,6 @@ jobs:
     - name: Create Issue
       uses: peter-evans/create-issue-from-file@v4
       with:
-        title: "Garibi"
-        content-filepath: ./main.py
-        labels: update
+        title: "Garibi-News-${{ steps.date.outputs.date }}"
+        content-filepath: ./crawling_results.md
+        labels: news
