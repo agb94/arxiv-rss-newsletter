@@ -1,2 +1,3 @@
 if __name__ == "__main__":
-  print("Nyam Nyam Garibi!")
+  with open("crawling_results.md", 'w') as f:
+    f.write("# Nyam Nyam Garibi")
