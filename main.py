@@ -36,5 +36,5 @@ if __name__ == "__main__":
 
         for paper in papers:
             f.write(f"## [{paper['title']}]({paper['link']})\n\n")
-            f.write(", ".join(paper.authors) + "\n\n")
-            f.write(paper.description)
+            f.write(", ".join(paper["authors"]) + "\n\n")
+            f.write(paper["description"]+ "\n\n")
