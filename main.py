@@ -45,21 +45,29 @@ def assign_tags(papers, keywords):
             if any([k in abstract for k in keywords[tag]]):
                 paper["tags"].append(tag)
 
-def to_markdown(papers, output_path):
+def to_markdown(papers, keywords, output_path):
     sorted_papers = sorted(papers, key=lambda paper: -len(paper["tags"]))
+
+    flattend_keywords = sum(keywords.values(), [])
 
     with open(output_path, 'w') as f:
         f.write(f"# {title}, {date}\n\n")
+
         for paper in sorted_papers:
             f.write(f"## [{paper['title']}]({paper['link']}) [[pdf]({paper['link'].replace('abs', 'pdf') + '.pdf'})]\n\n")
             f.write("Authors: " + ", ".join([f"{a}" for a in paper["authors"]]) + "\n\n")
             if paper["tags"]:
                 f.write("Tags: " + ", ".join([f"`{tag}`" for tag in paper["tags"]]) + "\n\n")
-            f.write("Abstract:".join(paper["description"].split("Abstract:")[1:]) + "\n\n")
+            abstract = "Abstract:".join(paper["description"].split("Abstract:")[1:])
+            # make keyword bold
+            for keyword in flattend_keywords:
+                abstract = abstract.replace(keyword, f"**{keyword}**")
+
+            f.write(abstract + "\n\n")
 
 if __name__ == "__main__":
 
     root = get_arxiv_rss_feed(CAT)
     title, date, papers = parse_arxiv_rss_feed_xml(root)
     assign_tags(papers, KEYWORDS)
-    to_markdown(papers, "crawling_results.md")    
+    to_markdown(papers, KEYWORDS, "crawling_results.md")    
