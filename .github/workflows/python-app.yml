@@ -46,6 +46,6 @@ jobs:
     - name: Create Issue
       uses: peter-evans/create-issue-from-file@v4
       with:
-        title: "Garibi-News-${{ steps.date.outputs.date }}"
+        title: "arXiv NEWS (${{ steps.date.outputs.date }})"
         content-filepath: ./crawling_results.md
         labels: news
