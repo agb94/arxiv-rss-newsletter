@@ -45,10 +45,10 @@ def assign_tags(papers, keywords):
             if any([k in abstract for k in keywords[tag]]):
                 paper["tags"].append(tag)
 
-def to_markdown(papers, keywords, output_path):
-    sorted_papers = sorted(papers, key=lambda paper: -len(paper["tags"]))
+def to_markdown(papers, keywords, output_path, k=20):
+    sorted_papers = sorted(papers, key=lambda paper: -len(paper["tags"]))[:k]
 
-    flattend_keywords = sum(keywords.values(), [])
+    flattened_keywords = sum(keywords.values(), [])
 
     with open(output_path, 'w') as f:
         f.write(f"# {title}, {date}\n\n")
@@ -60,7 +60,7 @@ def to_markdown(papers, keywords, output_path):
                 f.write("Tags: " + ", ".join([f"`{tag}`" for tag in paper["tags"]]) + "\n\n")
             abstract = "Abstract:".join(paper["description"].split("Abstract:")[1:])
             # make keyword bold
-            for keyword in flattend_keywords:
+            for keyword in flattened_keywords:
                 abstract = abstract.replace(keyword, f"**{keyword}**")
 
             f.write(abstract + "\n\n")
