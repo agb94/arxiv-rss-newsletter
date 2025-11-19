@@ -1,13 +1,12 @@
 import requests
 import xml.etree.ElementTree as ET
-# import wordcloud
-# from nltk.corpus import stopwords
 
 CAT = "cs.SE"
 KEYWORDS = {
     "LLM": ["Large Language Model", "LLM"],
     "FL": ["Fault Localization", "Fault Localisation", "FL"],
-    "APR": ["Automated Program Repair", "APR"]
+    "APR": ["Automated Program Repair", "APR"],
+    "MCP": ["Model Context Protocol", "MCP"]
 }
 
 def get_arxiv_rss_feed(category):
